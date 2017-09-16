@@ -1,0 +1,32 @@
+Lesson 1, refelctions
+---------------------
+R* Viewing a diff between two versions helped me spot the bug because the changes from the old to the new version were only few and i could easily parse through
+   them to review the changes and zero-in on the bug.
+
+R* New directory for Git Bash  "c/Users/arung@nvidia.com/git/gitAndGitHub/reflections" (working with normal cmd prompt would be difficult)
+  - File lesson_1_reflections.txt
+  - Viewing a diff between two versions helped me spot the Bug because the changes from the old to the new version were only few and i coulde easily parse through them to
+    review the changes and spot the bug.
+
+R* How could having easy access to the entire history of a file make you a more efficient programmer in the long term?
+  - One can track exactly when a particular Bug was introduced and revert it accordingly
+  - One can revert to earlier better versions easily
+  
+
+R* What do you think are the pros and cons of manually choosing when to create a commit, like you do in Git, vs having versions automatically saved, like Google Docs does?
+  - Commits might be too big or too small rather than being just right and logically distinct.
+  - But commits will be of a work product complete or improved in some sense
+  
+R* Why do you think some version control systems, like Git, allow saving multiple files in one commit, while others, like Google Docs, treat each file separately?
+  - Logical changes in code are usually spread over multiple files
+  - Docs are usually edited one file at a time.
+  
+R* How can you use the commands git log and git diff to view the history of files? 
+  - git log -- <filename> # shows all commits that affect the named file
+  - git diff <cmt id1> <cmt id2> <filename> # show the diff in the file between two commits
+  
+R* How might using version control make you more confident to make changes that could break something?
+  - I know i can always go back to a working version of the past very easily
+  
+R* Now that you have your workspace set up, what do you want to try using Git for?
+  - Coding hobby projects  
