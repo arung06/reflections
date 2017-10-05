@@ -1,4 +1,11 @@
 R* When would you want to use a remote repository rather than keeping all your work local?
-When my local repo has grown in size and i would like to have a back-up of it in the cloud, 
+- When my local repo has grown in size and i would like to have a back-up of it in the cloud, 
 i would decide to set up a remote repository to which i can back up ll my past and future
 commits.
+
+R* Why might you want to always pull changes manually rather than having Git automatically stay
+   up-to-date with your remote repository?
+- I may be evaluating a new feature or fixing a bug that conflicts with commits already on the remote repo
+  So a pull may not even happen cleanly.
+- I may be operating on a specific topic branch (different from master) for the above purpose. I may choose
+  to publish it even as a separate feature branch on the repo
