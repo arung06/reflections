@@ -19,3 +19,9 @@ R* Describe the differences between forks, clones, and branches. When would you 
 R* What is the benefit of having a copy of the last known state of the remote stored locally?
    - It helps us to base our new commits on top of the remote's latest state so that there would be no conflicts when we push the commit.
    - The idea is to first pull the latest state from remote, and rebase our commits on top of it and then push our new commits.
+
+R* How would you collaborate without using Git or GitHub?  What would be easier, and what would be harder?
+   - Without Git or any other VCS, we would periodically be syncing and merging our personal copies of the project using manual diff tools on a file-by-file basis.
+     and also be performing functional verification checks to ensure that a relevant subset always works. The project itself may be shared as tarballs over the internet/email.
+   - Cons: It would be time-consuming and error-prone to sync-up and merge manually; Root causing and fixing regressions would be harder.
+   - Pros: No learning curve involved as in git or github
