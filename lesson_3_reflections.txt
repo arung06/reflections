@@ -25,3 +25,11 @@ R* How would you collaborate without using Git or GitHub?  What would be easier,
      and also be performing functional verification checks to ensure that a relevant subset always works. The project itself may be shared as tarballs over the internet/email.
    - Cons: It would be time-consuming and error-prone to sync-up and merge manually; Root causing and fixing regressions would be harder.
    - Pros: No learning curve involved as in git or github
+
+R* When would you want to make changes in a separate branch rather than directly in master? What benefits does each approach have?
+  - If i'm the only one working on my github repo, i would only make changes to the remote's master branch directly. There is no
+    need of collaboration and Pull Requests here. Unless of course if i'm internally forking my repo into two long-term branches -
+    one with basic features and the other with advanced and arguably less stable features. Even then, i won't use Pull Requests
+  - If my github repo's master has already been pulled and is worked on by others, i would want to check with them before i make
+    changes to master that might affect their use case. This situation warrants collaboration and i can do this via separate branches
+    and pull requests on github. This method takes time but it ensures all users of the repo are satisfied
