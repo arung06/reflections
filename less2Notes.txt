@@ -1,0 +1,81 @@
+git commands
+=============
+*** commit id appears to the top of the commit msg
+*** Branches are very light-weight in git => create them left and right!
+*** "git status" command is your best friend
+
+* git clone <the url of the repository to copy> # Make a copy of an entire Git repository, including the history, onto your own computer.
+  - git clone will also copy the commit history of the repository. 
+  - git clone would create a new directory automatically
+* git diff <commit id1 old> <commit id2 new> # diff between two commits
+  - git diff considers the first argument as the "original", and the second argument as the "new" version, so additions are lines present in the second argument but not the first.
+*** git diff <old cmt id1> <new cmt id2> <filename> # show the diff in the file between two commits
+  - If you reverse the order of the commits, additions will show as deletions and vice versa
+*** git diff HEAD~1 HEAD  
+** git log --stat  # git log with files changes stats (number of insertions and deletions)
+* git config --global color.ui auto # To get colored diff output
+** git log -- <filename>  # shows all commits that affected the metioned file
+** gitk # handy gui for git operations
+* gitk <filename> # to see history of that file 
+* git checkout <cmt id> # to checkout specific version of the repo (Temporarily reset all files in a directory to their state at the time of a specific commit.; causes HEAD to detach from the current branch)
+  - The state when a specific commit is checked out instead of a branch - is what's called a "detached HEAD".
+  - When you instead choose to check out a commit hash, the consequence is that when you make changes and commit them, these changes do NOT belong to any branch.
+* git checkout -b <branch_name> <cmt id>  #create a new branch at the mentioned commit id and switch to it (HEAD is no longer detached, but attached to the new branch)
+
+* git init # set up an empty git repo (zero commits) in the current directory location
+  - .git is created
+  - When you initialize the repository, Git doesn’t create any commits for you.  You’ll have to create the first commit yourself.
+* git add   <file_name> # adds file_name to staging area
+* git reset <file_name> # removes file_name from staging area and puts it back to working directory
+
+* git diff # diffs file in working directory with staging area
+** git diff --staged # diffs file in staging area with HEAD
+* git diff commit1 commit2 # compares two commits
+   - commit 2 is considered the newer commit for deciding additions and deletions
+
+* git branch <bname>  # creates new branch bname without checking it out
+* git checkout -b <bname> # creates and checks out branch bname
+
+** git log --graph --oneline <branch1> <branch2> # shows combined log/history of two branches showing at what commit they forked away and the newer commits in each branch after that
+
+*** git show <commit> # shows changes introduced by <commit> wrt its parent. This property remains unchanged even in a merged branch where adjacent commits could have come from distinct branches (interleaved by timestamp)
+
+*** git branch -d <branch>  # deletes the label/pointer <branch>; but the commits belonging to it are still intact
+    - "-D" => force delete
+
+** git merge <branch1> <branch2> # merge <branch1> into <branch2>. Stay on <branch2>. You could optionally delete <branch1> (just the label, commits are retained)
+
+---------------------
+
+* git stores its metadata in a hidden directory called .git
+  - use "ls -a" to view hidden directories
+  - it's stored at the top-level (root) directory of the git project
+  - an empty master branch is still created
+  
+** It's standard git practice to write commit messages as if it were a command ("Add" instead of "Added" or "Adds" and so on)
+  - A git commit message must focus on the "what" of the change rather than the "how"
+
+*** The git commit-id is a 40-character SHA-1 checksum hash
+
+* "master" is the name given to the main branch in most git repositories
+  - Everytime you create a repository, git creates a master branch for you
+  
+* "Detached HEAD state" => The HEAD is no longer labeled with a branch name
+
+* New commits only affect (adds the commit to the "tip") the branch that's currently checked out.
+
+* The process of combining two commits is called "merging"
+
+* commits made in detached HEAD state are lost (if you don't note the commit ids) because they do not lie on any branch and hence are unreachable by backtracing commits on existing branch
+  - HEAD means "current commit"
+  - backtracing of commits on a git branch is essentially what git log does till it reaches the root commit.    
+
+** A git merge commit has two parents unlike regular commits
+  - Merge side branch into the master branch
+  - The merge commit now signifies the master branch
+  - git log on the master branch will show commits from both branches sorted according to timestamps
+    + i.e. the commits from both branches could be interleaved if their timestamps are such
+    + This means adjacent commits in "git log" output may not have parent<-child relationship in the case of merged branches
+
+  
+  

@@ -1,0 +1,274 @@
+git commands
+=============
+*** commit id appears to the top of the commit msg
+*** Branches are very light-weight in git => create them left and right!
+*** "git status" command is your best friend
+
+* git clone <the url of the repository to copy> # Make a copy of an entire Git repository, including the history, onto your own computer.
+  - git clone will also copy the commit history of the repository. 
+  - git clone would create a new directory automatically
+  - git clone of a github repo will automatically setup remote repo "origin" for you
+* git diff <commit id1 old> <commit id2 new> # diff between two commits
+  - git diff considers the first argument as the "original", and the second argument as the "new" version, so additions are lines present in the second argument but not the first.
+*** git diff <old cmt id1> <new cmt id2> <filename> # show the diff in the file between two commits
+  - If you reverse the order of the commits, additions (green) will show as deletions (red) and vice versa
+*** git diff HEAD~1 HEAD  
+** git log --stat  # git log with file-change stats (number of insertions and deletions)
+* git config --global color.ui auto # To get colored diff output
+** git log -- <filename>  # shows all commits that affected the metioned file
+** gitk # handy gui for git operations
+* gitk <filename> # to see history of that file 
+* git checkout <cmt id> # to checkout specific version of the repo (Temporarily reset all files in a directory to their state at the time of a specific commit.; causes HEAD to detach from the current branch)
+  - The state when a specific commit is checked out instead of a branch - is what's called a "detached HEAD".
+  - When you choose to check out a commit hash, the consequence is that when you make changes and commit them, these changes do NOT belong to any branch.
+* git checkout -b <branch_name> <cmt id>  #create a new branch at the mentioned commit id and switch to it (HEAD is no longer detached, but attached to the new branch)
+
+* git init # set up an empty git repo (zero commits) in the current directory location
+  - .git directory is created
+  - When you initialize the repository, Git doesn’t create any commits for you.  You’ll have to create the first commit yourself.
+* git add   <file_name> # adds file_name to staging area
+* git reset <file_name> # removes file_name from staging area and puts it back to working directory
+* git reset HEAD # moves all staged files from SA to WD
+
+* git diff # diffs file in working directory with staging area
+** git diff --staged # diffs file in staging area with HEAD
+   - same as "git diff --cached"
+* git diff commit1 commit2 # compares two commits
+   - commit 2 is considered the newer commit for deciding additions and deletions
+
+* git branch <bname>  # creates new branch bname without checking it out
+* git checkout -b <bname> # creates and checks out branch bname
+
+** git log --graph --oneline <branch1> <branch2> # shows combined log/history of two branches showing at what commit they forked away and the newer commits in each branch after that
+
+*** git show <commit> # shows changes introduced by <commit> wrt its parent. This property remains unchanged even in a merged branch where adjacent commits in git log could have come from distinct branches (interleaved by timestamp)
+
+*** git branch -d <branch>  # deletes the label/pointer <branch>; but the commits belonging to it are still intact
+    - "-D" => force delete
+
+** git merge <branch1> <branch2> # merge changes in <branch1> into <branch2> and stay on <branch2>. You could optionally delete <branch1> (just the label is deleted, commits are retained)
+
+** git remote # to see remote repos of current repo (could come up as "origin")
+
+** git remote add <origin> <URL> # add repo indicated by <URL> on github as remote for the current local repo and call it <origin>
+
+** git remote -v # verbose outputs about remote repos
+
+** git push origin master # push local branch of git repo to remote repo called origin
+** git push origin <branch> # push local "branch" of git repo to its remote repo called origin; a new branch is created automatically on the repo if it did not exist originally
+
+** git pull origin master # pull new commits from remote master branch to local master branch (the remote and local branch names need not match)
+** git pull origin <branch>
+
+** git remote rm origin # removes/unlinks the origin as the remote repo (doesn't delete the corresponding repository on github)
+
+** git fetch origin # update origin/master on the local repo from the remote repo's master branch. Local repo's master branch remains unaffected (unlike a git pull that could create conflicts)
+
+** git log origin/master # see the last sycned copy of remote's master branch
+
+** git diff origin/master master # see the difference between remote repo's last synced master and local repo's master
+
+** Git configures your commit name and email address automatically based on your username and hostname. Please check that they are accurate.
+Else, you could set them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+--------------------
+
+GitHub
+========
+
+* GitHub is a service that allows users interact with git
+* GitHub is a website that allows you to share an entire git repository with other people
+   - e.g., "udacity/create-your-own-adventure"
+* GitHub is a source code hosting facility (https://en.wikipedia.org/wiki/Comparison_of_source_code_hosting_facilities)
+  - A source code repository is a file archive and web hosting facility where a large amount of source code, for software or for web pages, is kept, either publicly or privately. 
+    They are often used by open-source software projects and other multi-developer projects to handle various versions. They help developers submit patches of code in an organized fashion. 
+  - Often these web sites support version control, bug tracking, release management, mailing lists, and wiki-based documentation.
+
+* GitHub is the home of several popular Open Source Community projects
+
+* Many CS researchers use the following services to share their work:
+  - publish the paper on arXiv
+  - share the code on GitHub
+  
+* GitHub is built on git
+  - Local part is largely git (i.e., working on your laptop)
+  - Once it's on the cloud and you start collaborating (the "social" part), it's mainly github  
+  
+* "GitHub lets you version your code, collaborate with others, and share what you’ve built with the world."  
+ 
+* Public repos can be hosted for free
+  - visible to everyone
+* Private (hidden) repos are charged
+
+* Small companies can use GitHub to "cloud host" their git repos remotely and privately.
+  - Allows easy code reviews on GitHub for commits ("Collaborative code review")
+  
+* Features of both Public and Private Accounts:
+ - Collaborative code review
+ - Issue tracking
+ - Open source community
+ - Unlimited public repositories
+ - Join any organization  
+  
+* Set up Password Caching, if needed, to avoid logging into github everytime you push
+
+* To allow for syncing data between two repos, git has the concept of a remote repo
+  - remote repos allow you to push and pull commits
+  - but push and pull is usually done in terms of a branch (ex. master) instead of individual commits   
+    + all new commits on that branch are pushed or pulled
+    
+* A new (empty) repo created on github need to be added separately as a remote repo to your existing local repo
+  - remotes can be created using 'git remote' set of commands
+  - If you have only one remote, it's standard practice to name it "origin"
+  - branch created on github will have the same name as local branch (i.e., after you do: git push origin master)
+  - Note that "origin" corresponds to a repository URL that was supplied to the "git remote add" command.
+  
+* git push and git pull commands can be used to keep the local and remote repos in sync
+  - Note that push and pull operate on specific branches of a repo
+  - Remember that other users/computers could also push to the remote repo branch thus making it deviate from your local repo branch
+  - Until you push your changes to remote, in git log, you could see (HEAD->master) and (origin/master) branches pointing to separate commits
+  
+*** working directory (WD), staging area (SA), local master branch, GitHub master branch 
+
+*** Note that in general a "git pull origin master" could change your working directory, staging area and local master branch
+   - local master branch due to the new commits that were pulled cleanly
+   - in case a particular commit conflicted with local master
+     + working directory would have the modified files that requires manual conflict resolution (marked red in git status)
+     + staging area would have remaining files of the conflicting commit that were updated cleanly i.e., w/o conflicts (marked green in git status)
+     + you need to "git add" after conflict resolution and do "git pull --continue" (or do as "git status" suggests)
+** Conflcits happen when two or more users or divergent commits changes the same lines of source code.     
+  
+Forking a git repo
+------------------
+* Forking an existing repo is the way to go if you want to clone and develop that repo on GitHub in your own unique way that might cause the two repos to diverge over time.
+  - Forked repos can still be backed-up on GitHub
+  
+* Forking on github is just cloning a repo on github's machines itself and the forked repo would appear under your account  
+  - Forks do link back to the original repo
+  - The original repo maintains a count of its forks
+  
+* Once forked, the new repo becomes just like any other github repo and can be pulled down by multiple machines/users.  
+
+*** Note
+ - Branches are created on a single repo
+ - Cloning involves replicating an existing repo locally. The source repo might be either remote or local. Clone is not limited to github.
+ - Forking is only used in the context of github where you make a personal copy of an existing github repo.
+
+** Commits will not automatically be shared to remotes - you have to manually push your branch if you want to share changes.   
+ - After you ran git push, your change should exist both locally and on your fork. It should not exist on the source repository, which is the repository you forked from. 
+   + The reason you forked in the first place is because you don't have permission to change the source repository!
+
+** You can add people as "collaborators" on your github repo to grant them access to modify the repo (i.e., push commits to it)
+   - Each of these users would need to have github user names
+     
+** Collaborative work can cause conflicts between local and remote repos (diverging commits). Conflict resolution involves merging these commits suitably   
+
+*** You could make your changes directly to the master branch in your fork, but when contributing to a public repository, it’s standard practice to make the changes in a non-master 
+    branch within the fork. This way, you can easily keep your master branch up-to-date with master of the original repository, and merge changes from master into your 
+    branch when you are ready.
+    - i.e., use the master branch of your github fork as a tracking branch for the forked repo's master.
+    - Your main work will be in a non-master branch of your fork which you keep merging the updated master into as needed
+ 
+Remotes and Merging
+-------------------- 
+
+ ** When you clone a git repository, git automatically sets up a remote pointing to the repo (URL) you cloned from. It's called "origin" 
+    Contrast this with the case where you originally build a git repo locally and then back it up on github by first creating an empty repo on github and then setting it up as remote
+   - The local repo after cloning will have all the branches that the remote repo i.e., origin has.
+   
+** When you clone a git repository, you also get a local branch called master that points to the same commit as the remote repository's (i.e., origin's) master branch 
+   - An additional branch called "origin/master" is created automatically that points to the last known position on the remote's master branch 
+     + It's to be stressed that the origin/master is a local copy of the remote branch
+   - "git fetch" can be used to update origin/master alone, without affecting master if the two have diverged on the local and remote repos  
+      
+* Remember that 'git log' and 'git status' run without internet access.
+* git commands push, pull, fetch etc. require internet connection (involves communication with origin/URL)
+
+** git pull origin master can be split into:
+    - git fetch origin
+    - git merge master origin/master
+*** Pull => Fetch + Merge
+
+* git status can tell you if origin/master and master have diverged after a git fetch
+  - do "git merge" to resolve them
+  - or do a "git pull origin master" that combines git fetch and git merge steps above
+
+*** Fast-forward merges happen when the two commits/branches you're trying to merge are such that one commit/branch is directly reachable from the other (i.e. the one is the ancestor of the other).
+  - the branch we are merging into needs to be an ancestor of the branch we are merging from
+    + git merge b1 b2 => b2 must be an ancestor of b1 for FF merge
+  - fast-forward merge commits have only a single parent as opposed to two by merge commits produced from divergent branches.
+  - FF merges just move the branch pointer ahead
+
+ ** Can git commit logs be considered a Directed Acyclic Graph?
+ 
+ Pull Requests
+ ---------------
+ * A Pull Request is a feature of github that allows you to create a gerrit-like patch for review by others on a topic branch on remote before you merge those commits with remote's master
+ * The idea is to publish changes to github for review by others without breaking the master branch. Once reviewed, it's merged with master.
+ * Pull Requests are at the heart of github's collaboration mechanism
+   - You can work on features that you like, show that work to others, get feedback on it, enlist others also to work on it, and finally get it incorporated
+ 
+ * It's called a "Pull Request" because the originator of the PR is requesting the reviewer(s) to pull the new branch of commits into the master branch.
+   - In that sense, it could also be called a "Merge Request"
+ 
+ * Create a local topic branch and "Add->Commit->Push" your changes.
+   - git push origin <topic branch> is used for pushing the custom branch to github
+   - The topic branch would then be created on the github repo as well (master would be unaffected)
+ * Once topic branch is pushed to github, any github user can see it if it's a public repo
+ * But a Pull Request can proactively be initiated by clicking on the corresponding button
+ * If your repo is a forked repo, you'll need to change the "base fork" to point to the right repository you want the topic branch to be merged into by editing the branch's github page
+   - i.e., select whether destination repo (base repo) is the fork source or your own forked repo copy.
+ * Once you create a pull request by hitting the button, it'll show you details like commits, affected files, additions/deletions etc.
+ * The intended reviewers/maintainers would need to go through pending pull requests by clicking the button on the repository's page.
+   - An automatic email notification would be generated to all people on the watchlist
+   - So you must ensure that all reviewers/maintaineres are added to the watchlist
+ * github allows reviewers to make both inline as well as covering comments on a pull request's commits (on a per-commit basis)   
+ * The reviewer can merge a reviewed and okayed PR by selecting "Merge pull request" button that would appear only in case there is no conflict.
+   - there would surely be no conflict if it's going to be a simple FF merge
+   - I case of no conflict, even a regular merge could be triggered between the divergent branches using  "Merge pull request"
+   - There could be conflicts in case of divergent master and topic branches in which case the pull requester would be asked to address this conflict locally and push again
+     + i.e., the requester should pull the new master (git pull origin master) and merge the updated master into his topic branch (not the other way round). 
+       Then push the modified topic branch again to update the PR. If reviewer approves, the PR can then be merged
+     + These operations could be done using "git rebase" as well, but in this chapter we focus on the merge approach (though git log will contain merge branches)  
+ * Summary of steps to resolve PR merge conflict (merge button is not green)
+    - git pull origin master
+    - git checkout topic (this step is important for the following merge to work correctly)
+    - git merge master topic
+    - git push origin topic
+    - final review of PR and hit the merge button that should now be green
+     
+ * Once a PR has already been created for a branch on github, further commits that are pushed to that branch keep updating the same PR (no fresh PR needs to be created)     
+   - This is like uploading newer versions of the patchset to the same gerrit page
+ * Once a PR is merged, topic branch on remote (and local) repo can be deleted. GitHub provides a button for this. 
+ 
+ *** Merging PRs on github always creates a new commit (even in case of simple FF merges), i.e. the new commit is like a regular 2-way merge commit
+ 
+ * In a collaborative environment, everyone must push to master only via Pull Requests (i.e. after peer review)
+   
+*** Fork and Pull Request are github-specific concepts (they don't exist in git proper) 
+
+Updating a cross-repository Pull Request
+----------------------------------------
+*** Merge conflicts between our fork and fork source (original repo) cannot be resolved on the github side. It has to be done locally first and then pushed to our fork
+  - Add a remote to the fork source repo's master branch to your local repo.
+    + This branch is usually called "upstream" remote i.e. upstream/master
+ >> git remote add upstream <URL.git>
+  - Merge upstream branch with your local master branch    
+ >> git checkout master
+ >> git pull upstream master 
+  - Merge upstream branch with your local topic branch  
+ >> git checkout topic
+ >> git merge master topic (resolve merge conflicts)
+  - Push both master branch and topic branch to your fork (origin)
+ >> git push origin topic
+ >> git checkout master
+ >> git push origin master  
+ 
+*** origin => fork; upstream => original repo, i.e., fork source
